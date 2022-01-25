@@ -66,6 +66,34 @@ class LinkedList
     temp_node
   end
 
+  def pop
+    return @head if @head.nil?
+
+    previous_node = @head
+    current_node = @head.next_node
+
+    until current_node.next_node.nil?
+      previous_node = current_node
+      current_node = current_node.next_node
+    end
+
+    previous_node.next_node = nil
+    current_node
+  end
+
+  def contains?(value)
+    return false if @head.nil?
+
+    temp_node = @head
+    until temp_node.nil?
+      return true if temp_node.value == value
+
+      temp_node = temp_node.next_node
+    end
+
+    false
+  end
+
   def to_s
     return 'nil' if @head.nil?
 

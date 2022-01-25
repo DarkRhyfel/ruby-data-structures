@@ -23,3 +23,10 @@ puts "Current head: #{list.head}"
 puts "Current tail: #{list.tail}"
 puts "Current item at 1: #{list.at(1)}"
 puts "List item count: #{list.size}"
+puts 'Popping an item'
+puts "Popped #{list.pop}"
+puts list
+puts "Current tail: #{list.tail}"
+puts "List item count: #{list.size}"
+puts "List contains test? #{list.contains?('test')}"
+puts "List contains test2? #{list.contains?('test2')}"

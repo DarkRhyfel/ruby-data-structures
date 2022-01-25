@@ -5,6 +5,8 @@ require './LinkedList/classes/node'
 
 # LinkedList class
 class LinkedList
+  attr_reader :head
+
   def initialize
     @head = nil
   end

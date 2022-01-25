@@ -111,6 +111,30 @@ class LinkedList
     nil
   end
 
+  def insert_at(value, index)
+    if @head.nil?
+      @head = Node.new(value)
+      return
+    end
+
+    if index.zero?
+      @head = Node.new(value, @head)
+      return
+    end
+
+    previous_node = @head
+    current_node = @head.next_node
+    temp_index = 1
+
+    until temp_index == index || current_node.nil?
+      previous_node = current_node
+      current_node = current_node.next_node
+      temp_index += 1
+    end
+
+    previous_node.next_node = Node.new(value, current_node)
+  end
+
   def to_s
     return 'nil' if @head.nil?
 

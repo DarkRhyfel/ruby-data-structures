@@ -32,3 +32,8 @@ puts "List contains test? #{list.contains?('test')}"
 puts "List contains test2? #{list.contains?('test2')}"
 puts "Index of test3 #{list.find('test3')}"
 puts "Index of test5 #{list.find('test5')}"
+list.insert_at('test2', 2)
+list.insert_at('test10', 10)
+list.insert_at('test5', 0)
+puts list
+puts "List item count: #{list.size}"

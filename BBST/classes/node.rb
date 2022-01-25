@@ -15,4 +15,13 @@ class Node
   def <=>(other)
     value <=> other.value
   end
+
+  def child_count
+    count = 0
+
+    count += 1 unless left.nil?
+    count += 1 unless right.nil?
+
+    count
+  end
 end

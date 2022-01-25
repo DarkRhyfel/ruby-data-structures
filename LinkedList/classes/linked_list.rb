@@ -44,6 +44,14 @@ class LinkedList
     count
   end
 
+  def tail
+    return @head if @head.nil?
+
+    temp_node = @head
+    temp_node = temp_node.next_node until temp_node.next_node.nil?
+    temp_node
+  end
+
   def to_s
     return 'nil' if @head.nil?
 

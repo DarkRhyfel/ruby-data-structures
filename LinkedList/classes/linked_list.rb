@@ -52,6 +52,20 @@ class LinkedList
     temp_node
   end
 
+  def at(index)
+    return @head if @head.nil?
+
+    temp_node = @head
+    temp_index = 0
+
+    until temp_index == index || temp_node.nil?
+      temp_index += 1
+      temp_node = temp_node.next_node
+    end
+
+    temp_node
+  end
+
   def to_s
     return 'nil' if @head.nil?
 

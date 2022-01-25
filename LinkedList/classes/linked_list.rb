@@ -21,6 +21,15 @@ class LinkedList
     temp_node.next_node = Node.new(value)
   end
 
+  def prepend(value)
+    if @head.nil?
+      @head = Node.new(value)
+      return
+    end
+
+    @head = Node.new(value, @head)
+  end
+
   def to_s
     return 'nil' if @head.nil?
 

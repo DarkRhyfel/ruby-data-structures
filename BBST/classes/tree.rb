@@ -27,6 +27,18 @@ class Tree
     @root = delete_node(value, @root)
   end
 
+  def find(value, root = @root)
+    return nil if root.nil?
+
+    if root.value == value
+      root
+    elsif value < root.value
+      find(value, root.left)
+    else
+      find(value, root.right)
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left: true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", is_left: false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"

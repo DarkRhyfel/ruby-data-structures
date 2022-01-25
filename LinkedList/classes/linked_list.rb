@@ -4,7 +4,7 @@
 require './LinkedList/classes/node'
 
 # LinkedList class
-class LinkedList
+class LinkedList # rubocop:disable Metrics/ClassLength
   attr_reader :head
 
   def initialize
@@ -111,7 +111,9 @@ class LinkedList
     nil
   end
 
-  def insert_at(value, index)
+  # rubocop:disable Metrics/MethodLength
+
+  def insert_at(value, index) 
     if @head.nil?
       @head = Node.new(value)
       return
@@ -134,6 +136,31 @@ class LinkedList
 
     previous_node.next_node = Node.new(value, current_node)
   end
+
+  def remove_at(index)
+    return if @head.nil?
+
+    if index.zero?
+      @head = @head.next_node 
+      return
+    end
+
+    previous_node = @head
+    current_node = @head.next_node
+    temp_index = 1
+
+    until temp_index == index || current_node.nil?
+      previous_node = current_node
+      current_node = current_node.next_node
+      temp_index += 1
+    end
+
+    return if current_node.nil?
+
+    previous_node.next_node = current_node.next_node
+  end
+
+  # rubocop:enable Metrics/MethodLength
 
   def to_s
     return 'nil' if @head.nil?

@@ -85,6 +85,7 @@ class LinkedList
     return false if @head.nil?
 
     temp_node = @head
+
     until temp_node.nil?
       return true if temp_node.value == value
 
@@ -92,6 +93,22 @@ class LinkedList
     end
 
     false
+  end
+
+  def find(value)
+    return nil if @head.nil?
+
+    temp_node = @head
+    temp_index = 0
+
+    until temp_node.nil?
+      return temp_index if temp_node.value == value
+
+      temp_node = temp_node.next_node
+      temp_index += 1
+    end
+
+    nil
   end
 
   def to_s

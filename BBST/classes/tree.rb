@@ -42,7 +42,7 @@ class Tree # rubocop:disable Metrics/ClassLength
   def level_order(&block)
     return nil if @root.nil?
 
-    traversal([@root].concat(level_order_traversal(@root)), &block)
+    traversal(level_order_traversal([@root]), &block)
   end
 
   def inorder(&block)
@@ -170,17 +170,16 @@ class Tree # rubocop:disable Metrics/ClassLength
     end
   end
 
-  def level_order_traversal(root)
-    return [] if root.nil?
+  def level_order_traversal(queue)
+    return [] if queue.empty?
 
-    nodes = []
-    nodes << root.left unless root.left.nil?
-    nodes << root.right unless root.right.nil?
+    root = queue.shift
 
-    nodes.concat(level_order_traversal(root.left))
-    nodes.concat(level_order_traversal(root.right))
+    nodes = [root]
+    queue << root.left unless root.left.nil?
+    queue << root.right unless root.right.nil?
 
-    nodes
+    nodes.concat(level_order_traversal(queue))
   end
 
   def inorder_traversal(root)

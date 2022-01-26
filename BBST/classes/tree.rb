@@ -4,7 +4,7 @@
 require './BBST/classes/node'
 
 # Tree class
-class Tree
+class Tree # rubocop:disable Metrics/ClassLength
   def initialize(array)
     @root = build_tree(array.uniq.sort)
   end
@@ -37,6 +37,56 @@ class Tree
     else
       find(value, root.right)
     end
+  end
+
+  def level_order(&block)
+    return nil if @root.nil?
+
+    traversal([@root].concat(level_order_traversal(@root)), &block)
+  end
+
+  def inorder(&block)
+    return nil if @root.nil?
+
+    traversal(inorder_traversal(@root), &block)
+  end
+
+  def preorder(&block)
+    return nil if @root.nil?
+
+    traversal(preorder_traversal(@root), &block)
+  end
+
+  def postorder(&block)
+    return nil if @root.nil?
+
+    traversal(postorder_traversal(@root), &block)
+  end
+
+  def height(node)
+    return 0 if node.nil?
+
+    count = node.children? ? 1 : 0
+    count += [height(node.right), height(node.left)].max
+
+    count
+  end
+
+  def depth(node, root = @root)
+    return 0 if node.nil? || node == root
+
+    count = 1
+    count += node < root ? depth(node, root.left) : depth(node, root.right)
+
+    count
+  end
+
+  def balanced?
+    (height(@root.left) - height(@root.right)).abs <= 1
+  end
+
+  def rebalance
+    @root = build_tree(inorder)
   end
 
   def pretty_print(node = @root, prefix = '', is_left: true)
@@ -110,5 +160,56 @@ class Tree
     end
 
     [succesor_parent, succesor]
+  end
+
+  def traversal(nodes, &block)
+    if block_given?
+      nodes.each(&block)
+    else
+      nodes.map(&:value)
+    end
+  end
+
+  def level_order_traversal(root)
+    return [] if root.nil?
+
+    nodes = []
+    nodes << root.left unless root.left.nil?
+    nodes << root.right unless root.right.nil?
+
+    nodes.concat(level_order_traversal(root.left))
+    nodes.concat(level_order_traversal(root.right))
+
+    nodes
+  end
+
+  def inorder_traversal(root)
+    nodes = []
+
+    nodes.concat(inorder_traversal(root.left)) unless root.left.nil?
+    nodes << root
+    nodes.concat(inorder_traversal(root.right)) unless root.right.nil?
+
+    nodes
+  end
+
+  def preorder_traversal(root)
+    nodes = []
+
+    nodes << root
+    nodes.concat(preorder_traversal(root.left)) unless root.left.nil?
+    nodes.concat(preorder_traversal(root.right)) unless root.right.nil?
+
+    nodes
+  end
+
+  def postorder_traversal(root)
+    nodes = []
+
+    nodes.concat(postorder_traversal(root.left)) unless root.left.nil?
+    nodes.concat(postorder_traversal(root.right)) unless root.right.nil?
+    nodes << root
+
+    nodes
   end
 end

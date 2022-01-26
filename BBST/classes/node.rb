@@ -24,4 +24,8 @@ class Node
 
     count
   end
+
+  def children?
+    !(left.nil? && right.nil?)
+  end
 end

@@ -4,4 +4,5 @@
 require './Knights/classes/board_graph'
 
 board = BoardGraph.new
-board.knight_moves([0, 0], [1, 2])
+path = board.knight_moves([0, 0], [1, 1])
+board.show_result(path)
